@@ -1,0 +1,13 @@
+---
+import { withBase } from "patmos-design-system/site/paths.js";
+
+const { photos, wide = "first" } = Astro.props;
+---
+
+<div class:list={["photo-set", { "photo-set--single": photos.length === 1, "photo-set--wide-last": wide === "last" }]}>
+  {
+    photos.map((photo) => (
+      <img class="photo-set__photo" src={withBase(photo.src)} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />
+    ))
+  }
+</div>

@@ -1,0 +1,116 @@
+---
+title: Color
+description: A monochrome foundation provides clarity and consistency, while a limited set of accent colors introduces energy, focus, and expression.
+order: 1
+icon: color
+---
+
+import ColorSpecs from "../components/ColorSpecs.astro";
+import TintScales from "../components/TintScales.astro";
+
+{/* prettier-ignore */}
+<p class="patmos-headline-s">Our color system is restrained and intentional. We use color deliberately to highlight what matters, mark key moments, and reinforce meaning wherever people meet the brand. Together, our brand colors create a visual language that's uniquely Patmos.</p>
+
+## Primary colors
+
+<ColorSpecs
+  fill
+  colors={[
+    {
+      name: "Black",
+      token: "color.primary.black",
+      hex: "000000",
+      rgb: "0, 0, 0",
+      cmyk: "0, 0, 0, 100",
+    },
+    {
+      name: "White",
+      token: "color.primary.white",
+      hex: "FFFFFF",
+      rgb: "255, 255, 255",
+      cmyk: "0, 0, 0, 0",
+    },
+  ]}
+/>
+
+## Brand colors
+
+<ColorSpecs
+  colors={[
+    {
+      name: "Green",
+      token: "color.green.50",
+      hex: "20E6BF",
+      rgb: "32, 230, 191",
+      cmyk: "60, 0, 39, 0",
+      pms: "3255 C",
+    },
+    {
+      name: "Blue",
+      token: "color.blue.50",
+      hex: "2C5BFF",
+      rgb: "44, 91, 255",
+      cmyk: "80, 66, 0, 0",
+      pms: "2728 C",
+    },
+    {
+      name: "Purple",
+      token: "color.purple.50",
+      hex: "B026FF",
+      rgb: "176, 38, 255",
+      cmyk: "54, 79, 0, 0",
+      pms: "2592 C",
+    },
+    {
+      name: "Red",
+      token: "color.red.50",
+      hex: "FF2A4F",
+      rgb: "255, 42, 79",
+      cmyk: "0, 94, 61, 0",
+      pms: "1925 C",
+    },
+  ]}
+/>
+
+## Functional colors
+
+<ColorSpecs
+  colors={[
+    {
+      name: "Alert",
+      token: "color.alert.50",
+      hex: "ED1C24",
+      rgb: "237, 28, 36",
+      cmyk: "0, 100, 100, 0",
+    },
+    {
+      name: "Success",
+      token: "color.success.50",
+      hex: "00A651",
+      rgb: "0, 166, 81",
+      cmyk: "100, 0, 100, 0",
+    },
+    {
+      name: "Warning",
+      token: "color.warning.50",
+      hex: "FFDD00",
+      rgb: "255, 221, 0",
+      cmyk: "0, 10, 100, 0",
+    },
+  ]}
+/>
+
+## Tints
+
+<TintScales
+  families={[
+    { label: "Monochrome", family: "primary" },
+    { label: "Green", family: "green" },
+    { label: "Blue", family: "blue" },
+    { label: "Purple", family: "purple" },
+    { label: "Red", family: "red" },
+    { label: "Alert", family: "alert" },
+    { label: "Success", family: "success" },
+    { label: "Warning", family: "warning" },
+  ]}
+/>

@@ -1,0 +1,22 @@
+---
+import { brandAsset, t, theme } from "../lib/theme.js";
+
+const { versions } = Astro.props;
+---
+
+<div class="logo-versions">
+  {
+    versions.map((version) => (
+      <figure class="logo-version">
+        <div class={`logo-version__surface logo-version__surface--${version.kind}`}>
+          <span class="mark mark--on-light" set:html={brandAsset(theme.brand?.[version.kind]?.light)} />
+          <span class="mark mark--on-dark" set:html={brandAsset(theme.brand?.[version.kind]?.dark)} />
+        </div>
+        <figcaption class="logo-version__caption">
+          <span class={t("body-m-medium")}>{version.label}</span>
+          <span class={`logo-version__description ${t("body-s-regular")}`}>{version.description}</span>
+        </figcaption>
+      </figure>
+    ))
+  }
+</div>

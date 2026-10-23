@@ -1,0 +1,9 @@
+---
+import SitePage from "patmos-design-system/site/Page.astro";
+import "../styles/brand.css";
+import { site } from "../lib/nav.js";
+---
+
+<SitePage {...Astro.props} sites={[await site()]}>
+  <slot />
+</SitePage>

@@ -1,0 +1,118 @@
+---
+title: Logo
+description: "The Patmos logo has two elements: the Icon and the Wordmark."
+order: 2
+icon: logo
+---
+
+import Button from "patmos-design-system/components/button/Button.astro";
+import ClearZone from "../components/ClearZone.astro";
+import LogoFrame from "../components/LogoFrame.astro";
+import LogoTiles from "../components/LogoTiles.astro";
+import LogoVersions from "../components/LogoVersions.astro";
+import MinimumSize from "../components/MinimumSize.astro";
+import PhotoSet from "../components/PhotoSet.astro";
+import RuleList from "../components/RuleList.astro";
+import { withBase } from "patmos-design-system/site/paths.js";
+
+<PhotoSet
+  photos={[
+    {
+      src: "/brand/logo/sign.jpg",
+      alt: "The Patmos Icon in white on a black square sign mounted to a building, with leaf shadows across it.",
+      width: 1000,
+      height: 563,
+    },
+  ]}
+/>
+
+## Versions
+
+<LogoVersions
+  versions={[
+    {
+      kind: "icon",
+      label: "The Icon",
+      description: "You can use the Icon on its own, and it plays a large role in defining the Patmos visual identity.",
+    },
+    {
+      kind: "logo",
+      label: "The Wordmark",
+      description: "The Wordmark sets the Patmos name in a custom sans-serif typeface, all lowercase. Always lock it up with the Icon, and never use it on its own.",
+    },
+  ]}
+/>
+
+<Button variant="secondary" size="small" href={withBase("/brand/downloads/patmos-logos.zip")} label="Download logos" />
+
+## Clear zone
+
+To protect the logo from other visual elements, always surround it with a minimum amount of clear space, and keep other graphic elements out of that area. The height of the Icon sets the size of this exclusion zone.
+
+<ClearZone />
+
+## Minimum size
+
+To keep the logo legible, never reduce it below its minimum size.
+
+<MinimumSize
+  sizes={[
+    { kind: "icon", label: "Icon", digital: "50 px", print: "10 mm" },
+    { kind: "logo", label: "Wordmark", digital: "100 px", print: "20 mm" },
+  ]}
+/>
+
+## Color
+
+Black is the default color for our logo. Use the white version on darker backgrounds and images for contrast and clarity. Legibility always comes first.
+
+<LogoTiles
+  tiles={[
+    { logo: "black", background: "var(--patmos-color-green-50)", label: "Black logo on Patmos green" },
+    { logo: "white", background: "var(--patmos-color-primary-black)", label: "White logo on black" },
+    { logo: "white", image: "/brand/imagery/storytelling-1.jpg", label: "White logo on a darker photo of friends watching a game" },
+    { logo: "black", image: "/brand/imagery/color-tone-2.jpg", label: "Black logo on a bright photo of a curved roofline against the sky" },
+  ]}
+/>
+
+## Application
+
+### Placement
+
+Logo placement can vary with the layout, but we always prefer left-aligned placement.
+
+<div class="logo-frames">
+  <LogoFrame ratio="210:297" fraction="1/4" position="top-left" title="Left-aligned" detail="Preferred" />
+  <LogoFrame ratio="210:297" fraction="1/4" position="center" title="Centered" />
+  <LogoFrame ratio="210:297" fraction="1/4" position="bottom-right" title="Bottom right" />
+</div>
+
+### Size
+
+Size the logo relative to the width of the format.
+
+<div class="logo-frames">
+  <LogoFrame ratio="1:1" fraction="1/3" title="Square" detail="1/3 of the width" />
+  <LogoFrame ratio="210:297" fraction="1/4" title="Standard portrait" detail="1/4 of the width" />
+  <LogoFrame ratio="9:16" fraction="1/3" title="Narrow portrait" detail="1/3 of the width" />
+</div>
+
+<div class="logo-frames">
+  <LogoFrame ratio="297:210" fraction="1/6" title="Standard landscape" detail="1/6 of the width" />
+  <LogoFrame ratio="3:1" fraction="1/2" title="Narrow landscape" detail="1/2 of the width" />
+</div>
+
+## Do's and don'ts
+
+Always use the correct artwork for the Patmos logo, and follow these rules.
+
+<RuleList
+  rules={[
+    { kind: "do", text: "Give the logo enough clear space to keep it visible and clear." },
+    { kind: "do", text: "Use the logo in its intended form, with the correct proportions, orientation, and approved colors." },
+    { kind: "do", text: "Place the logo on its own, clearly separated from text, imagery, and graphics." },
+    { kind: "dont", text: "Don't alter the logo in any way, including its color, proportions, or orientation, and don't add effects." },
+    { kind: "dont", text: "Don't place text, graphics, or other elements inside the clear zone, or so close that they could look like part of the logo." },
+    { kind: "dont", text: "Don't crop, distort, rotate, or combine the logo with other elements to create new marks or compositions." },
+  ]}
+/>

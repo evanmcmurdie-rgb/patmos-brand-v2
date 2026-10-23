@@ -1,0 +1,19 @@
+---
+import { getCollection, render } from "astro:content";
+
+import { prose } from "patmos-design-system/site/prose/index.js";
+import Page from "../../layouts/Page.astro";
+
+export async function getStaticPaths() {
+  return (await getCollection("brand")).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Page rail="docs" toc={entry.data.toc} eyebrow={`Brand / ${entry.data.title}`} title={entry.data.title} lede={entry.data.description}>
+  <div class="prose">
+    <Content components={prose} />
+  </div>
+</Page>

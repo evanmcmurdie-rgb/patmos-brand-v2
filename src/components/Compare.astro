@@ -1,0 +1,23 @@
+---
+import CardFramed from "patmos-design-system/components/card-framed/CardFramed.astro";
+import { t } from "../lib/theme.js";
+
+const { avoid, prefer, avoidLabel = "Instead of", preferLabel = "Write" } = Astro.props;
+const items = [
+  { kind: "avoid", label: avoidLabel, text: avoid },
+  { kind: "prefer", label: preferLabel, text: prefer },
+];
+---
+
+<div class="compare">
+  {
+    items.map((item) => (
+      <CardFramed variant="filled">
+        <div class="compare__item">
+          <span class={`compare__label compare__label--${item.kind} ${t("body-s-medium")}`}>{item.label}</span>
+          <p class={t("body-s-regular")}>“{item.text}”</p>
+        </div>
+      </CardFramed>
+    ))
+  }
+</div>

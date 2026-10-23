@@ -1,0 +1,28 @@
+---
+import { brandAsset, t, theme } from "../lib/theme.js";
+
+const icon = { light: brandAsset(theme.brand?.icon?.light), dark: brandAsset(theme.brand?.icon?.dark) };
+const logo = { light: brandAsset(theme.brand?.logo?.light), dark: brandAsset(theme.brand?.logo?.dark) };
+---
+
+<div class="clear-zone" role="img" aria-label="The Icon's height, marked X, sets a clear zone of X on every side of the logo">
+  <div class="clear-zone__measure">
+    <span class="clear-zone__icon">
+      <span class="mark mark--on-light" set:html={icon.light} />
+      <span class="mark mark--on-dark" set:html={icon.dark} />
+    </span>
+    <span class="measure-rule measure-rule--vertical" aria-hidden="true"></span>
+    <span class={`clear-zone__x ${t("label-regular")}`} aria-hidden="true">X</span>
+  </div>
+  <div class="clear-zone__zone">
+    <span class="hairline-frame" aria-hidden="true"></span>
+    <span class="clear-zone__logo">
+      <span class="mark mark--on-light" set:html={logo.light} />
+      <span class="mark mark--on-dark" set:html={logo.dark} />
+    </span>
+    <span class={`clear-zone__label clear-zone__label--top-left ${t("label-regular")}`} aria-hidden="true">X</span>
+    <span class={`clear-zone__label clear-zone__label--top-right ${t("label-regular")}`} aria-hidden="true">X</span>
+    <span class={`clear-zone__label clear-zone__label--bottom-left ${t("label-regular")}`} aria-hidden="true">X</span>
+    <span class={`clear-zone__label clear-zone__label--bottom-right ${t("label-regular")}`} aria-hidden="true">X</span>
+  </div>
+</div>

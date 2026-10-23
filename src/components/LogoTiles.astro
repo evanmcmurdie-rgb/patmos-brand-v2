@@ -1,0 +1,18 @@
+---
+import { withBase } from "patmos-design-system/site/paths.js";
+import { brandAsset, theme } from "../lib/theme.js";
+
+const { tiles } = Astro.props;
+const logos = { black: brandAsset(theme.brand?.logo?.light), white: brandAsset(theme.brand?.logo?.dark) };
+---
+
+<div class="logo-tiles">
+  {
+    tiles.map((tile) => (
+      <div class="logo-tile" style={tile.background && `background: ${tile.background}`} role="img" aria-label={tile.label}>
+        {tile.image && <img class="logo-tile__photo" src={withBase(tile.image)} alt="" loading="lazy" decoding="async" />}
+        <span class="logo-tile__logo" set:html={logos[tile.logo]} />
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,23 @@
+---
+import { icon } from "patmos-design-system/components/html.js";
+import { t } from "../lib/theme.js";
+
+const { rules } = Astro.props;
+const kinds = {
+  do: { glyph: icon("checkmark-circle"), label: "Do" },
+  dont: { glyph: icon("close"), label: "Don't" },
+};
+---
+
+<ul class={`prose-list rule-list ${t("body-m-regular")}`}>
+  {
+    rules.map((rule) => (
+      <li class={`rule-list__item rule-list__item--${rule.kind}`}>
+        <div class="rule-list__row">
+          <span class="rule-list__icon" role="img" aria-label={kinds[rule.kind].label} set:html={kinds[rule.kind].glyph} />
+          <span>{rule.text}</span>
+        </div>
+      </li>
+    ))
+  }
+</ul>

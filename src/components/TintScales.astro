@@ -1,0 +1,47 @@
+---
+import SwatchCopy from "patmos-design-system/site/SwatchCopy.astro";
+import { hexOf, t, tokens } from "../lib/theme.js";
+
+const { families } = Astro.props;
+const named = ["white", "black"];
+const step = (token) => token.name.split(".")[2];
+const order = (token) => (step(token) === "white" ? -1 : step(token) === "black" ? Infinity : Number(step(token)));
+const scales = families.map(({ label, family }) => ({
+  label,
+  swatches: tokens
+    .filter((token) => token.layer === "primitive" && token.type === "color" && token.name.split(".")[1] === family)
+    .filter((token) => !/[-.]hover$/.test(token.name))
+    .sort((a, b) => order(a) - order(b))
+    .map((token) => ({
+      token,
+      step: named.includes(step(token)) ? step(token).charAt(0).toUpperCase() + step(token).slice(1) : step(token),
+      hex: hexOf(token) ?? token.values.default.resolved,
+    })),
+}));
+---
+
+{
+  scales.map((scale) => (
+    <section class="tint-scale">
+      <h3 class={t("body-m-medium")}>{scale.label}</h3>
+      <div class="tint-scale__swatches">
+        {scale.swatches.map((swatch) => (
+          <div class="tint-scale__chip" data-search-target={`token:${swatch.token.name}`}>
+            <button
+              class={`palette__swatch ${t("label-s")}`}
+              type="button"
+              style={`background: var(${swatch.token.cssVariable})`}
+              data-copy={swatch.hex}
+              aria-label={`Copy ${scale.label} ${swatch.step} ${swatch.hex}`}
+              title="Copy hex"
+            >
+              <SwatchCopy hex={swatch.hex} />
+            </button>
+            <span class={t("label-s")}>{swatch.step}</span>
+            <span class={`muted ${t("label-s")}`}>{swatch.hex}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))
+}

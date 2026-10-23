@@ -1,0 +1,32 @@
+---
+import { brandAsset, t, theme } from "../lib/theme.js";
+
+const { ratio, fraction, position = "top-left", title, detail } = Astro.props;
+const [numerator, denominator] = fraction.split("/").map(Number);
+const [width, height] = ratio.split(":").map(Number);
+const logo = { light: brandAsset(theme.brand?.logo?.light), dark: brandAsset(theme.brand?.logo?.dark) };
+---
+
+<figure class="logo-frame" style={`--ratio: ${width / height}`}>
+  <div
+    class="logo-frame__page"
+    style={`aspect-ratio: ${width} / ${height}; --fraction: ${numerator / denominator}`}
+    role="img"
+    aria-label={`${title}: logo ${fraction} of the width, ${position.replace("-", " ")}`}
+  >
+    <div class={`logo-frame__live logo-frame__live--${position}`}>
+      <span class="logo-frame__logo">
+        <span class="logo-frame__mark logo-frame__mark--light" set:html={logo.light} />
+        <span class="logo-frame__mark logo-frame__mark--dark" set:html={logo.dark} />
+        <span class={`logo-frame__measure ${t("label-s")}`}>
+          <span class="measure-rule measure-rule--horizontal" aria-hidden="true" />
+          {fraction}
+        </span>
+      </span>
+    </div>
+  </div>
+  <figcaption class="grid-frame__caption">
+    <span class={t("body-s-medium")}>{title}</span>
+    {detail && <span class={`muted ${t("label-s")}`}>{detail}</span>}
+  </figcaption>
+</figure>

@@ -1,0 +1,34 @@
+---
+import { brandAsset, t, theme } from "../lib/theme.js";
+
+const { sizes } = Astro.props;
+---
+
+<div class="min-size">
+  {
+    sizes.map((size) => (
+      <figure class="min-size__item">
+        <div class="min-size__surface" role="img" aria-label={`${size.label}, minimum width ${size.digital} digital and ${size.print} print`}>
+          <span class={`min-size__mark min-size__mark--${size.kind}`}>
+            <span class="mark mark--on-light" set:html={brandAsset(theme.brand?.[size.kind]?.light)} />
+            <span class="mark mark--on-dark" set:html={brandAsset(theme.brand?.[size.kind]?.dark)} />
+            <span class="measure-rule measure-rule--horizontal" aria-hidden="true" />
+          </span>
+        </div>
+        <figcaption class="min-size__caption">
+          <span class={t("body-m-medium")}>{size.label}</span>
+          <dl class="spec-table">
+            <div class="spec-table__row">
+              <dt class={`muted ${t("label-s")}`}>Digital</dt>
+              <dd class={t("label-s")}>{size.digital}</dd>
+            </div>
+            <div class="spec-table__row">
+              <dt class={`muted ${t("label-s")}`}>Print</dt>
+              <dd class={t("label-s")}>{size.print}</dd>
+            </div>
+          </dl>
+        </figcaption>
+      </figure>
+    ))
+  }
+</div>

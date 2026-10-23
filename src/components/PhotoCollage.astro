@@ -1,0 +1,9 @@
+---
+import { withBase } from "patmos-design-system/site/paths.js";
+
+const { photos, label } = Astro.props;
+---
+
+<div class="photo-collage" role="img" aria-label={label}>
+  {photos.map((src) => <img class="photo-collage__photo" src={withBase(src)} alt="" decoding="async" />)}
+</div>

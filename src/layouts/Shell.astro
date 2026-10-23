@@ -1,0 +1,11 @@
+---
+import SiteShell from "patmos-design-system/site/Shell.astro";
+import "../styles/brand.css";
+import { site } from "../lib/nav.js";
+
+const { title } = Astro.props;
+---
+
+<SiteShell title={title} sites={[await site()]}>
+  <slot />
+</SiteShell>

@@ -1,0 +1,26 @@
+---
+import { t, theme } from "../lib/theme.js";
+
+const weights = [
+  { name: "Medium", token: "typography-weight-medium" },
+  { name: "Regular", token: "typography-weight-regular" },
+];
+---
+
+<div class="type-weights">
+  {
+    weights.map((weight) => (
+      <article class="type-weight" style={`font-weight: var(--${theme.prefix}-${weight.token})`}>
+        <p class="type-weight__glyphs" aria-hidden="true">Aa</p>
+        <h3 class={t("body-m-medium")}>Graphik {weight.name}</h3>
+        <p class={`type-weight__set ${t("body-s-regular")}`}>
+          ABCDEFGHIJKLMNOPQRSTUVWXYZ
+          <br />
+          abcdefghijklmnopqrstuvwxyz
+          <br />
+          0123456789 !?&amp;@%
+        </p>
+      </article>
+    ))
+  }
+</div>

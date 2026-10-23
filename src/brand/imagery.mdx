@@ -1,0 +1,114 @@
+---
+title: Imagery
+description: Imagery is one of the most important assets in the Patmos identity. It carries tone, emotion, and color, and plays a central role in how people experience the brand.
+order: 4
+icon: imagery
+---
+
+import PhotoCollage from "../components/PhotoCollage.astro";
+import PhotoSet from "../components/PhotoSet.astro";
+
+Rather than relying on interface elements, we use imagery to bring depth, atmosphere, and visual richness to our communication.
+
+<PhotoCollage
+  label="A collage of Patmos imagery: a person in a VR headset, teal glass panels, a person with a tablet beside server racks, friends watching a game, and a curved building roofline against the sky."
+  photos={[
+    "/brand/imagery/color-tone-1.jpg",
+    "/brand/imagery/detail-2.jpg",
+    "/brand/imagery/lifestyle-2.jpg",
+    "/brand/imagery/storytelling-1.jpg",
+    "/brand/imagery/color-tone-2.jpg",
+  ]}
+/>
+
+## Storytelling
+
+Images should tell a clear and relevant story. They should show people in context, interacting with technology in a way that feels natural and purposeful. Focus on moments of use rather than staged situations. The subject should feel engaged, with a clear sense of intent or outcome.
+
+Each image should communicate value without explanation: what is happening, why it matters, and how it connects to the user.
+
+<PhotoSet
+  photos={[
+    {
+      src: "/brand/imagery/storytelling-1.jpg",
+      alt: "Three friends on a sofa cheering while watching a game, with popcorn and snacks on the table.",
+      width: 1000,
+      height: 667,
+    },
+    {
+      src: "/brand/imagery/storytelling-2.jpg",
+      alt: "A person in a grey turtleneck checking their phone inside a glass-walled office.",
+      width: 1000,
+      height: 667,
+    },
+  ]}
+/>
+
+## Color tone
+
+Imagery is our main source of color. Lighting, materials, and environments should create a natural and balanced color expression. Tones should feel soft, restrained, and realistic. Avoid overly saturated, artificial, or stylized color treatments.
+
+Across a set of images, the overall tonality should feel cohesive. No single image or color should overpower the others.
+
+<PhotoSet
+  wide="last"
+  photos={[
+    {
+      src: "/brand/imagery/color-tone-1.jpg",
+      alt: "A person in a green sweater adjusting a white VR headset.",
+      width: 1000,
+      height: 694,
+    },
+    {
+      src: "/brand/imagery/color-tone-2.jpg",
+      alt: "A curved white roof with warm wood soffits and copper columns against a blue sky.",
+      width: 1000,
+      height: 667,
+    },
+  ]}
+/>
+
+## Lifestyle
+
+Lifestyle imagery shows people in real situations, interacting with technology in everyday environments. The focus should be on authenticity and presence, not performance or staging. Images should communicate openness, capability, and human connection, reinforcing the idea that technology exists to support people.
+
+<PhotoSet
+  wide="last"
+  photos={[
+    {
+      src: "/brand/imagery/lifestyle-1.jpg",
+      alt: "A smiling person in glasses and a black t-shirt standing against a white wall.",
+      width: 1000,
+      height: 1500,
+    },
+    {
+      src: "/brand/imagery/lifestyle-2.jpg",
+      alt: "A person holding a tablet in a data center corridor, reflected in the glass of a server rack.",
+      width: 1000,
+      height: 668,
+    },
+  ]}
+/>
+
+## Detail
+
+We use detail shots to present systems, products, and ideas with clarity and intention. They help explain how things work, reveal structure, and highlight important details. We aim to present every element clearly and honestly, so people can understand and trust it for what it is.
+
+We mainly use this approach for infrastructure, hardware, and software, but it also works for concepts that are hard to show in real-world environments.
+
+<PhotoSet
+  photos={[
+    {
+      src: "/brand/imagery/detail-1.jpg",
+      alt: "The back of an LED wall: dark panels, power modules, and coiled cables.",
+      width: 1000,
+      height: 750,
+    },
+    {
+      src: "/brand/imagery/detail-2.jpg",
+      alt: "Close-up of teal glass panels with blurred lights behind them.",
+      width: 1000,
+      height: 667,
+    },
+  ]}
+/>

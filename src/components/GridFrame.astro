@@ -1,0 +1,69 @@
+---
+import { t } from "../lib/theme.js";
+
+const formats = {
+  A3: { size: [297, 420], unit: "mm", paper: true },
+  A4: { size: [210, 297], unit: "mm", paper: true },
+  A5: { size: [148, 210], unit: "mm", paper: true },
+  Letter: { size: [216, 279], unit: "mm", paper: true },
+  Web: { size: [1440, 900], unit: "px" },
+  Presentation: { size: [1920, 1080], unit: "px" },
+};
+
+const { columns = 12, format, ratio, orientation = "portrait", margins = true, gutters = false, options } = Astro.props;
+const group = `grid-columns-${Math.random().toString(36).slice(2, 8)}`;
+const preset = formats[format];
+const [width, height] = preset?.paper && orientation === "landscape" ? [...preset.size].reverse() : (preset?.size ?? []);
+const aspect = preset ? `${width} / ${height}` : ratio?.replace(":", " / ");
+const proportion = preset ? width / height : ratio && ratio.split(":").reduce((w, h) => w / h);
+const title = preset ? (preset.paper ? `${format} ${orientation}` : format) : ratio ? `${ratio} layout` : "Responsive";
+const gutter = preset && Number((Math.min(width, height) / 15 / 3).toFixed(2));
+---
+
+<figure class:list={["grid-frame", { "grid-frame--bare": !margins }]} style={proportion && `--ratio: ${proportion}`}>
+  {
+    options && (
+      <fieldset class="column-switch" data-grid-columns>
+        <legend class={`column-switch__label ${t("body-m-medium")}`}>Columns</legend>
+        <div class="tabs">
+          {options.map((count) => (
+            <label class={`tabs__tab ${t("label-regular")}`}>
+              <input class="tabs__input" type="radio" name={group} value={count} checked={count === columns} />
+              {count}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    )
+  }
+  <div
+    class:list={["grid-frame__page", { "grid-frame__page--fluid": !aspect }]}
+    style={aspect ? `aspect-ratio: ${aspect}` : undefined}
+    role="img"
+    aria-label={`${title}, ${columns}-column grid`}
+  >
+    <div class="grid-frame__live" style={`--columns: ${columns}`}>
+      {Array.from({ length: columns }, () => <span class="grid-frame__column" />)}
+    </div>
+  </div>
+  <figcaption class="grid-frame__caption">
+    <span class={t("body-s-medium")}>{title}</span>
+    {gutters && gutter && <span class={`muted ${t("label-s")}`}>{width} × {height} {preset.unit} · gutter {gutter} {preset.unit}</span>}
+  </figcaption>
+</figure>
+
+<script>
+  document.addEventListener("change", (event) => {
+    const input = (event.target as HTMLElement).closest<HTMLInputElement>("[data-grid-columns] input");
+    const frame = input?.closest("figure")?.querySelector<HTMLElement>(".grid-frame__page");
+    const live = frame?.querySelector<HTMLElement>(".grid-frame__live");
+    if (!input || !frame || !live) return;
+
+    const count = Number(input.value);
+    live.style.setProperty("--columns", String(count));
+    live.replaceChildren(
+      ...Array.from({ length: count }, () => Object.assign(document.createElement("span"), { className: "grid-frame__column" })),
+    );
+    frame.setAttribute("aria-label", `${frame.getAttribute("aria-label")?.split(",")[0]}, ${count}-column grid`);
+  });
+</script>

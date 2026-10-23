@@ -1,0 +1,63 @@
+---
+import { getCollection } from "astro:content";
+
+import NavigationLink from "patmos-design-system/components/navigation-link/NavigationLink.astro";
+import HomeLines from "patmos-design-system/site/HomeLines.astro";
+import Shell from "../layouts/Shell.astro";
+import { withBase } from "patmos-design-system/site/paths.js";
+import { t, theme } from "../lib/theme.js";
+
+const pages = (await getCollection("brand")).sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const resources = [
+  {
+    label: "Brand Guidelines 2026",
+    href: "https://firebasestorage.googleapis.com/v0/b/standards-site-beta.appspot.com/o/documents%2F0f2b6673b84%2F2b6673b8437%2FPatmos-2026%20(1)%20(1).pdf?alt=media&token=fc8e5492-77a0-49ee-8b2e-fcdeeb193498",
+  },
+  {
+    label: "Figma Design Library",
+    href: "https://www.figma.com/design/E7b7YV8gGSXp4Go9cR8FpD/Design-System?m=auto&t=M8hwjGaNoYGFVHnf-6",
+  },
+  {
+    label: "Figma Ways of Working",
+    href: "https://www.figma.com/design/2pEW8FZ853Q7sCapirnmH2/Patmos-Design-Ways-of-Working?m=auto&t=M8hwjGaNoYGFVHnf-1",
+  },
+];
+---
+
+<Shell title="Introduction">
+  <HomeLines />
+  <div class="rail rail--wide rail--hero">
+    <p class={`page-head__eyebrow ${t("body-m-regular")}`}>Welcome to {theme.name}</p>
+    <h1 class={t("headline-xl")}>Brand experience system</h1>
+    <p class={`page-head__lede ${t("body-m-regular")}`}>
+      Here you'll find everything you need to represent {theme.name} consistently: our color, logo, typography, imagery,
+      layout, and voice, with examples you can put to work right away. We keep it up to date as the brand grows.
+    </p>
+
+    <section class="quick-links" aria-labelledby="quick-links">
+      <h2 id="quick-links" class={t("headline-m")}>Identity</h2>
+      <ul class="quick-links__list">
+        {
+          pages.map((page) => (
+            <li class={t("body-m-regular")}>
+              <NavigationLink href={withBase(`/brand/${page.id}/`)} label={page.data.title} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="quick-links" aria-labelledby="resources">
+      <h2 id="resources" class={t("headline-m")}>Resources</h2>
+      <ul class="quick-links__list">
+        {
+          resources.map((link) => (
+            <li class={t("body-m-regular")}>
+              <NavigationLink href={link.href} label={link.label} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Shell>

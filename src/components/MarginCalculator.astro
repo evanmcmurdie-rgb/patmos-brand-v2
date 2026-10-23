@@ -1,0 +1,95 @@
+---
+import IconButton from "patmos-design-system/components/icon-button/IconButton.astro";
+import TextInput from "patmos-design-system/components/text-input/TextInput.astro";
+import { t } from "../lib/theme.js";
+
+const { width = 210, height = 297 } = Astro.props;
+const round = (value) => Number(value.toFixed(2));
+const margin = Math.min(width, height) / 15;
+const shape = width >= height ? { w: 100, h: (height / width) * 100 } : { w: (width / height) * 100, h: 100 };
+---
+
+<div class="margin-calc" data-margin-calc>
+  <div class="margin-calc__form">
+    <div class="margin-calc__intro">
+      <p class={t("body-m-medium")}>Calculate your margins</p>
+      <p class={`margin-calc__subtitle ${t("body-s-regular")}`}>
+        Enter your format's width and height to get the margin and gutter to use.
+      </p>
+    </div>
+    <div class="margin-calc__fields">
+      <TextInput label="Width" type="number" name="width" value={String(width)} />
+      <TextInput label="Height" type="number" name="height" value={String(height)} />
+    </div>
+    <dl class="margin-calc__results" aria-live="polite">
+      <div>
+        <dt class={`muted ${t("label-s")}`}>Margin</dt>
+        <dd class="margin-calc__value">
+          <span class={t("headline-s")} data-margin>{round(margin)}</span>
+          <span class="margin-calc__copy" data-copy-for="margin">
+            <IconButton icon="content-copy" label="Copy margin" variant="tertiary" size="small" />
+          </span>
+        </dd>
+      </div>
+      <div>
+        <dt class={`muted ${t("label-s")}`}>Gutter</dt>
+        <dd class="margin-calc__value">
+          <span class={t("headline-s")} data-gutter>{round(margin / 3)}</span>
+          <span class="margin-calc__copy" data-copy-for="gutter">
+            <IconButton icon="content-copy" label="Copy gutter" variant="tertiary" size="small" />
+          </span>
+        </dd>
+      </div>
+    </dl>
+    <p class={`margin-calc__error ${t("body-s-regular")}`} data-margin-note></p>
+  </div>
+  <div class="grid-frame margin-calc__stage" aria-hidden="true">
+    <div class="grid-frame__page margin-calc__page" style={`width: ${shape.w}%; height: ${shape.h}%`}>
+      <div class="grid-frame__live"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const round = (value: number) => String(Number(value.toFixed(2)));
+
+  function bind(root: HTMLElement) {
+    const [widthInput, heightInput] = root.querySelectorAll<HTMLInputElement>("input");
+    const page = root.querySelector<HTMLElement>(".margin-calc__page")!;
+    const note = root.querySelector<HTMLElement>("[data-margin-note]")!;
+    const output = (name: string, value: string) => {
+      root.querySelector(`[data-${name}]`)!.textContent = value;
+      root.querySelector<HTMLElement>(`[data-copy-for="${name}"] button`)!.dataset.copy = value;
+    };
+
+    const calculate = () => {
+      const inputs = [widthInput, heightInput];
+      const invalid = inputs.filter((input) => input.value !== "" && !(Number(input.value) > 0));
+      for (const input of inputs) {
+        if (invalid.includes(input)) input.setAttribute("aria-invalid", "true");
+        else input.removeAttribute("aria-invalid");
+      }
+      note.textContent = invalid.length ? "Enter a width and height above zero." : "";
+
+      const width = Number(widthInput.value);
+      const height = Number(heightInput.value);
+      if (!(width > 0 && height > 0)) return;
+
+      const margin = Math.min(width, height) / 15;
+      output("margin", round(margin));
+      output("gutter", round(margin / 3));
+      page.style.width = `${width >= height ? 100 : (width / height) * 100}%`;
+      page.style.height = `${width >= height ? (height / width) * 100 : 100}%`;
+    };
+
+    for (const input of [widthInput, heightInput]) {
+      input.step = "any";
+      input.addEventListener("input", calculate);
+    }
+    calculate();
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLElement>("[data-margin-calc]").forEach(bind);
+  });
+</script>
