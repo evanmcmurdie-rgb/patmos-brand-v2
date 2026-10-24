@@ -13,6 +13,6 @@
   "dependencies": {
     "@astrojs/mdx": "^8.0.3",
     "astro": "^7.3.8",
-    "patmos-design-system": "git+ssh://git@github.com/evanmcmurdie-rgb/patmos-design-system-test.git#38d51c348df014afc261b4c00f0a9825c5375574"
+    "patmos-design-system": "git+ssh://git@github.com/evanmcmurdie-rgb/patmos-design-system-test.git#328fcd0ca62819bf391e0533d3e4de3108c0a9e8"
   }
 }
