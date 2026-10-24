@@ -1,0 +1,28 @@
+---
+import { withBase } from "patmos-design-system/site/paths.js";
+import { brandAsset, t, theme } from "../lib/theme.js";
+
+const { page } = Astro.props;
+const icon = { light: brandAsset(theme.brand?.icon?.light), dark: brandAsset(theme.brand?.icon?.dark) };
+const chips = ["primary-black", "primary-white", "green-50", "blue-50", "purple-50", "red-50"];
+---
+
+<a class="page-card" href={withBase(`/brand/${page.id}/`)}>
+  <div class={`page-card__preview page-card__preview--${page.id}`} aria-hidden="true">
+    {page.id === "color" && chips.map((chip) => <span class="page-card__chip" style={`background: var(--patmos-color-${chip})`} />)}
+    {
+      page.id === "logo" && (
+        <span class={`page-card__icon ${t("headline-xl")}`}>
+          <span class="mark mark--on-light" set:html={icon.light} />
+          <span class="mark mark--on-dark" set:html={icon.dark} />
+        </span>
+      )
+    }
+    {page.id === "typography" && <span class={t("headline-xl")}>Aa</span>}
+    {page.id === "imagery" && <img src={withBase("/brand/imagery/color-tone-2.jpg")} alt="" loading="lazy" decoding="async" />}
+    {page.id === "layout" && <span class="page-card__columns">{Array.from({ length: 6 }, () => <span />)}</span>}
+    {page.id === "tone-messaging" && <span class={t("headline-s")}>Authentic, inclusive, serious, & quietly bold.</span>}
+  </div>
+  <span class={`page-card__title ${t("headline-xs")}`}>{page.data.title}</span>
+  <span class={`page-card__description ${t("body-s-regular")}`}>{page.data.description}</span>
+</a>

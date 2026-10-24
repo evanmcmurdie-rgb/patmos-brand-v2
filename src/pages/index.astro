@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 
 import NavigationLink from "patmos-design-system/components/navigation-link/NavigationLink.astro";
 import HomeLines from "patmos-design-system/site/HomeLines.astro";
+import PageCard from "../components/PageCard.astro";
 import Shell from "../layouts/Shell.astro";
 import { withBase } from "patmos-design-system/site/paths.js";
 import { t, theme } from "../lib/theme.js";
@@ -33,13 +34,13 @@ const resources = [
       layout, and voice, with examples you can put to work right away. We keep it up to date as the brand grows.
     </p>
 
-    <section class="quick-links" aria-labelledby="quick-links">
-      <h2 id="quick-links" class={t("headline-m")}>Identity</h2>
-      <ul class="quick-links__list">
+    <section class="page-cards" aria-labelledby="identity">
+      <h2 id="identity" class={t("headline-m")}>Identity</h2>
+      <ul class="page-cards__list">
         {
           pages.map((page) => (
-            <li class={t("body-m-regular")}>
-              <NavigationLink href={withBase(`/brand/${page.id}/`)} label={page.data.title} />
+            <li>
+              <PageCard page={page} />
             </li>
           ))
         }
